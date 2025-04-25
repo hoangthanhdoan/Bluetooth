@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLE Message Receiver</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>BLE Message Receiver</h1>
+        
+        <div class="controls">
+            <button id="startScanButton">Start Scanning</button>
+            <button id="stopScanButton" disabled>Stop Scanning</button>
+        </div>
+        
+        <div id="status" class="status">Ready to scan</div>
+        
+        <div class="messages-container">
+            <h2>Received Messages</h2>
+            <div id="messages" class="messages"></div>
+        </div>
+    </div>
+    <script src="receiver.js"></script>
+</body>
+</html> 
