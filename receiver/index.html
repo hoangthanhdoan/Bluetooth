@@ -163,7 +163,8 @@ href="watch-advertisements.html">Watch Advertisements</a> sample.</p>
 
   
     
-      <script>async function onWatchAdvertisementsButtonClick() {
+      <script>
+      async function onWatchAdvertisementsButtonClick() {
   try {
     log('Requesting any Bluetooth device...');
     const device = await navigator.bluetooth.requestLEScan({
@@ -193,6 +194,45 @@ href="watch-advertisements.html">Watch Advertisements</a> sample.</p>
     log('Argh! ' + error);
   }
 }
+
+window.abc = async function onWatchAdvertisementsButtonClick2() {
+  try {
+    log('Requesting any Bluetooth device...');
+    const options = {
+                acceptAllAdvertisements: true
+            };
+
+    const device  = await navigator.bluetooth.requestLEScan(options);
+
+    //const device = await navigator.bluetooth.requestDevice({
+     // filters: [...] <- Prefer filters to save energy & show relevant devices.
+     //   acceptAllDevices: true});
+
+    log('> Requested ' + device.name);
+
+    navigator.bluetooth.addEventListener('advertisementreceived', (event) => {
+      log('Advertisement received.');
+      log('  Device Name: ' + event.device.name);
+      log('  Device ID: ' + event.device.id);
+      log('  RSSI: ' + event.rssi);
+      log('  TX Power: ' + event.txPower);
+      log('  UUIDs: ' + event.uuids);
+      event.manufacturerData.forEach((valueDataView, key) => {
+        logDataView('Manufacturer', key, valueDataView);
+      });
+      event.serviceData.forEach((valueDataView, key) => {
+        logDataView('Service', key, valueDataView);
+      });
+    });
+
+    log('Watching advertisements from "' + device.name + '"...');
+    await device.watchAdvertisements();  
+  } catch(error) {
+    log('Argh! ' + error);
+  }
+}
+
+window.abc();
 
 /* Utils */
 
