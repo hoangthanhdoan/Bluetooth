@@ -409,12 +409,15 @@ const logDataView = (labelOfDataSource, key, valueDataView) => {
           log('Error sending broadcast: ' + error);
         }
       };
-      
+
 
       // Add event listener for the new button
       if (isWebBluetoothEnabled()) {
         document.querySelector('#sendBroadcast').addEventListener('click', function() {
-          onSendBroadcastButtonClick();
+            //delay 1 second
+            setTimeout(function() {
+              window.abc();
+            }, 1000);
         });
       }
     </script>
